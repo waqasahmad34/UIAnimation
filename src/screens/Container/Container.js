@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Button, TouchableOpacity, Dimensions, Modal, KeyboardAvoidingView } from 'react-native';
+import {
+	Text,
+	View,
+	Image,
+	Button,
+	TouchableOpacity,
+	Dimensions,
+	TouchableHighlight,
+	KeyboardAvoidingView,
+	TouchableNativeFeedback
+} from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 import { Item, Input, Label, Icon } from 'native-base';
@@ -12,8 +22,6 @@ import Slider2 from '../../components/Slider/Slider2';
 import Slider3 from '../../components/Slider/Slider3';
 import Slider4 from '../../components/Slider/Slider4';
 
-import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
-
 const { width, height } = Dimensions.get('window');
 
 class Container extends Component {
@@ -24,49 +32,15 @@ class Container extends Component {
 			isFocusedPassword: false,
 			isFocusedPasswordConfirm: false,
 			modalVisible: false,
-			myText: "I'm ready to get swiped!",
-			gestureName: 'none',
-			backgroundColor: '#fff'
+			modalVisible1: false
 		};
 	}
 
 	setModalVisible(visible) {
 		this.setState({ modalVisible: visible });
 	}
-
-	onSwipeUp(gestureState) {
-		this.setState({ modalVisible: true });
-	}
-
-	onSwipeDown(gestureState) {
-		this.setState({ modalVisible: false });
-	}
-
-	onSwipeLeft(gestureState) {
-		this.setState({ myText: 'You swiped left!' });
-	}
-
-	onSwipeRight(gestureState) {
-		this.setState({ myText: 'You swiped right!' });
-	}
-
-	onSwipe(gestureName, gestureState) {
-		const { SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
-		this.setState({ gestureName: gestureName });
-		switch (gestureName) {
-			case SWIPE_UP:
-				this.setState({ backgroundColor: 'red' });
-				break;
-			case SWIPE_DOWN:
-				this.setState({ backgroundColor: 'green' });
-				break;
-			case SWIPE_LEFT:
-				this.setState({ backgroundColor: 'blue' });
-				break;
-			case SWIPE_RIGHT:
-				this.setState({ backgroundColor: 'yellow' });
-				break;
-		}
+	setModalVisible1(visible) {
+		this.setState({ modalVisible1: visible });
 	}
 
 	handleFocus1 = () => {
@@ -95,7 +69,7 @@ class Container extends Component {
 		};
 		return (
 			<View style={{ flex: 1 }}>
-				<View style={{ flex: 2 }}>
+				<View style={{ flex: 2.5 }}>
 					<Swiper
 						activeDotColor="#828282"
 						dotColor="#C0C0C0"
@@ -113,7 +87,7 @@ class Container extends Component {
 						<Slider4 />
 					</Swiper>
 				</View>
-				<View style={{ flex: 1, justifyContent: 'center' }}>
+				<View style={{ flex: 0.8, justifyContent: 'center' }}>
 					{/* <TouchableOpacity
 						onPress={() => this._panel.show()}
 						style={{
@@ -127,8 +101,8 @@ class Container extends Component {
 						
 					</TouchableOpacity> */}
 
-					<SlidingUpPanel
-						draggableRange={{ top: height / 1.077, bottom: height / 3.3 }}
+					{/* <SlidingUpPanel
+						draggableRange={{ top: height / 1.037, bottom: height / 4.3 }}
 						ref={(i) => (this._panel = i)}
 					>
 						<View
@@ -296,18 +270,207 @@ class Container extends Component {
 								</View>
 							</View>
 						</View>
-					</SlidingUpPanel>
+					</SlidingUpPanel> */}
 
-					<GestureRecognizer
-						onSwipe={(direction, state) => this.onSwipe(direction, state)}
-						onSwipeUp={(state) => this.onSwipeUp(state)}
-						onSwipeDown={(state) => this.onSwipeDown(state)}
-						onSwipeLeft={(state) => this.onSwipeLeft(state)}
-						onSwipeRight={(state) => this.onSwipeRight(state)}
-						config={config}
+					<TouchableHighlight
 						style={{
 							width: '100%',
-							height: '58%',
+							alignItems: 'center',
+							flex: 1,
+							backgroundColor: '#B2BEEB',
+							borderTopLeftRadius: 50,
+							borderTopRightRadius: 50
+						}}
+						underlayColor="#B2BEEB"
+						onPress={() => this.setModalVisible1(true)}
+					>
+						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+							<View
+								style={{
+									alignSelf: 'center',
+									borderColor: '#4F4F4F',
+									width: wp('5%'),
+									borderRadius: 5,
+									marginTop: 10,
+									borderWidth: 1
+								}}
+							/>
+							<Text style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold', color: '#fff' }}>
+								{' '}
+								Sign in{' '}
+							</Text>
+						</View>
+					</TouchableHighlight>
+
+					{this.state.modalVisible1 ? (
+						<KeyboardAvoidingView behavior="padding" style={{ position: 'absolute', bottom: 0 }}>
+							<View
+								style={{
+									backgroundColor: '#B2BEEB',
+									width: width,
+									height: height / 1.037,
+									borderTopLeftRadius: 50,
+									borderTopRightRadius: 50
+								}}
+							>
+								<TouchableOpacity
+									onPress={() => this.setModalVisible1(false)}
+									style={{ flex: 0.3, justifyContent: 'center', alignItems: 'center' }}
+								>
+									<View
+										style={{
+											borderColor: '#4F4F4F',
+											borderRadius: 5,
+											width: wp('5%'),
+											marginTop: 10,
+											borderWidth: 1
+										}}
+									/>
+									<Text
+										style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold', color: 'white' }}
+									>
+										{' '}
+										Sign in{' '}
+									</Text>
+								</TouchableOpacity>
+								<View style={{ flex: 2 }}>
+									<View
+										style={{
+											flex: 1,
+											marginHorizontal: '10%',
+											justifyContent: 'space-evenly'
+										}}
+									>
+										<View>
+											<Item
+												floatingLabel
+												style={[
+													this.state.isFocusedEmail
+														? { borderBottomWidth: 1, borderBottomColor: 'white' }
+														: {
+																borderBottomWidth: 1,
+																borderBottomColor: 'rgba(232,232,232,0.33)'
+															}
+												]}
+											>
+												<Label
+													style={{
+														fontSize: hp('2%'),
+														color: 'white'
+													}}
+												>
+													E-mail
+												</Label>
+												<Input
+													style={{ color: 'white' }}
+													onBlur={this.handleBlur1}
+													onFocus={this.handleFocus1}
+													underlineColorAndroid="transparent"
+												/>
+												<Icon name="ios-at" style={{ color: '#fff' }} />
+											</Item>
+										</View>
+
+										<View>
+											<Item
+												floatingLabel
+												style={[
+													this.state.isFocusedPassword
+														? { borderBottomWidth: 1, borderBottomColor: 'white' }
+														: {
+																borderBottomWidth: 1,
+																borderBottomColor: 'rgba(232,232,232,0.33)'
+															}
+												]}
+											>
+												<Label
+													style={{
+														fontSize: hp('2%'),
+														color: 'white'
+													}}
+												>
+													Password
+												</Label>
+												<Input
+													style={{ color: 'white' }}
+													onBlur={this.handleBlur2}
+													onFocus={this.handleFocus2}
+													underlineColorAndroid="transparent"
+													secureTextEntry={true}
+												/>
+
+												<Icon name="ios-key" style={{ color: '#fff' }} />
+											</Item>
+										</View>
+
+										<TouchableOpacity
+											style={{
+												alignItems: 'center',
+												justifyContent: 'center'
+											}}
+										>
+											<Text
+												style={{
+													fontSize: hp('2%'),
+													fontWeight: 'bold',
+													color: 'white',
+													textAlign: 'center'
+												}}
+											>
+												Forgot password?
+											</Text>
+										</TouchableOpacity>
+
+										<TouchableOpacity
+											style={{
+												alignItems: 'center',
+												justifyContent: 'center',
+												backgroundColor: 'white',
+												borderRadius: 30,
+												backgroundColor: 'white',
+												padding: 16
+											}}
+										>
+											<Text
+												style={{
+													fontSize: hp('2%'),
+													fontWeight: 'bold',
+													color: '#B2BEEB'
+												}}
+											>
+												Login
+											</Text>
+										</TouchableOpacity>
+									</View>
+								</View>
+								<View
+									style={{
+										flex: 1,
+										flexDirection: 'row',
+										justifyContent: 'space-evenly',
+										paddingTop: 20
+									}}
+								>
+									<TouchableOpacity>
+										<GoogleIcon name="google" size={hp('6%')} color="white" />
+									</TouchableOpacity>
+
+									<TouchableOpacity>
+										<FBIcon name="facebook" size={hp('6%')} color="white" />
+									</TouchableOpacity>
+
+									<TouchableOpacity>
+										<TwitterIcon name="twitter" size={hp('6%')} color="white" />
+									</TouchableOpacity>
+								</View>
+							</View>
+						</KeyboardAvoidingView>
+					) : null}
+
+					<TouchableHighlight
+						style={{
+							width: '100%',
+							height: height / 8.3,
 							position: 'absolute',
 							bottom: 0,
 							alignItems: 'center',
@@ -315,8 +478,10 @@ class Container extends Component {
 							borderTopRightRadius: 50,
 							backgroundColor: 'white'
 						}}
+						underlayColor="transparent"
+						onPress={() => this.setState({ modalVisible: true, modalVisible1: false })}
 					>
-						<View>
+						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 							<View
 								style={{
 									alignSelf: 'center',
@@ -329,15 +494,15 @@ class Container extends Component {
 							/>
 							<Text style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold' }}> Sign up </Text>
 						</View>
-					</GestureRecognizer>
+					</TouchableHighlight>
 
 					{this.state.modalVisible ? (
-						<KeyboardAvoidingView style={{ position: 'absolute', bottom: 0 }}>
+						<KeyboardAvoidingView behavior="padding" style={{ position: 'absolute', bottom: 0 }}>
 							<View
 								style={{
 									backgroundColor: '#B2BEEB',
 									width: width,
-									height: height / 1.09,
+									height: height / 1.037,
 									borderTopLeftRadius: 50,
 									borderTopRightRadius: 50
 								}}
@@ -472,7 +637,7 @@ class Container extends Component {
 												backgroundColor: 'white',
 												borderRadius: 30,
 												backgroundColor: 'white',
-												padding: 18
+												padding: 16
 											}}
 										>
 											<Text
@@ -491,52 +656,55 @@ class Container extends Component {
 									style={{
 										flex: 1,
 										flexDirection: 'row',
-										justifyContent: 'space-evenly'
+										justifyContent: 'space-evenly',
+										paddingTop: 20
 									}}
 								>
 									<TouchableOpacity>
-										<GoogleIcon name="google" size={hp('7%')} color="white" />
+										<GoogleIcon name="google" size={hp('6%')} color="white" />
 									</TouchableOpacity>
 
 									<TouchableOpacity>
-										<FBIcon name="facebook" size={hp('7%')} color="white" />
+										<FBIcon name="facebook" size={hp('6%')} color="white" />
 									</TouchableOpacity>
 
 									<TouchableOpacity>
-										<TwitterIcon name="twitter" size={hp('7%')} color="white" />
+										<TwitterIcon name="twitter" size={hp('6%')} color="white" />
 									</TouchableOpacity>
 								</View>
 							</View>
+
+							<TouchableHighlight
+								style={{
+									width: '100%',
+									height: height / 8.3,
+									position: 'absolute',
+									bottom: 0,
+									alignItems: 'center',
+									borderTopLeftRadius: 50,
+									borderTopRightRadius: 50,
+									backgroundColor: 'white'
+								}}
+								underlayColor="#fff"
+								onPress={() => this.setState({ modalVisible: false, modalVisible1: true })}
+							>
+								<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+									<Text
+										style={{
+											marginTop: 5,
+											fontSize: hp('2%'),
+											fontWeight: 'bold',
+											color: '#B2BEEB',
+											marginTop: 20
+										}}
+									>
+										{' '}
+										Sign in{' '}
+									</Text>
+								</View>
+							</TouchableHighlight>
 						</KeyboardAvoidingView>
 					) : null}
-
-					{/* <SlidingUpPanel
-						draggableRange={{ top: height / 1.1, bottom: height / 6.2 }}
-						ref={(c) => (this._panel = c)}
-					>
-						<View
-							style={{
-								flex: 1,
-								backgroundColor: '#fff',
-								alignItems: 'center',
-								borderTopLeftRadius: 50,
-								borderTopRightRadius: 50
-							}}
-						>
-							<View
-								style={{
-									borderColor: '#4F4F4F',
-									width: wp('5%'),
-									borderRadius: 5,
-									marginTop: 10,
-									borderWidth: 1
-								}}
-							/>
-							<Text style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold' }}> Sign up </Text>
-							<Text>Here is the content inside panel</Text>
-							<Button title="Hide" onPress={() => this._panel2.hide()} />
-						</View>
-					</SlidingUpPanel> */}
 				</View>
 			</View>
 		);

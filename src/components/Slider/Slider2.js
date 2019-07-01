@@ -9,13 +9,13 @@ class Slider2 extends Component {
 				<View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}>
 					<Image
 						source={require('../../assets/Walkthrough_image_2.png')}
-						style={{ width: wp('60%'), height: hp('45%'), resizeMode: 'cover' }}
+						style={{ width: wp('60%'), height: hp('45%'), resizeMode: 'contain' }}
 					/>
 				</View>
 				<View style={{ flex: 1, alignItems: 'center' }}>
-					<Text style={{ fontSize: hp('2.5%'), fontWeight: 'bold' }}>Promote</Text>
-					<Text style={{ fontSize: hp('1.8%') }}>Send or accept sponsoring request to</Text>
-					<Text style={{ fontSize: hp('1.8%') }}>share your content with other creators</Text>
+					<Text style={{ fontSize: hp('2%'), fontWeight: 'bold' }}>Promote</Text>
+					<Text style={{ fontSize: hp('1.7%') }}>Send or accept sponsoring request to</Text>
+					<Text style={{ fontSize: hp('1.7%') }}>share your content with other creators</Text>
 				</View>
 			</View>
 		);
