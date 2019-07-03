@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
-import {
-	Text,
-	View,
-	Image,
-	Button,
-	TouchableOpacity,
-	Dimensions,
-	TouchableHighlight,
-	KeyboardAvoidingView,
-	TouchableNativeFeedback
-} from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions, TouchableHighlight, KeyboardAvoidingView } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import SlidingUpPanel from 'rn-sliding-up-panel';
+import * as Animatable from 'react-native-animatable';
 import { Item, Input, Label, Icon } from 'native-base';
 import FBIcon from 'react-native-vector-icons/FontAwesome';
 import GoogleIcon from 'react-native-vector-icons/AntDesign';
@@ -295,7 +285,15 @@ class Container extends Component {
 									borderWidth: 1
 								}}
 							/>
-							<Text style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold', color: '#fff' }}>
+							<Text
+								style={{
+									marginTop: 5,
+									padding: 18,
+									fontSize: hp('2%'),
+									fontWeight: 'bold',
+									color: '#fff'
+								}}
+							>
 								{' '}
 								Sign in{' '}
 							</Text>
@@ -303,12 +301,17 @@ class Container extends Component {
 					</TouchableHighlight>
 
 					{this.state.modalVisible1 ? (
-						<KeyboardAvoidingView behavior="padding" style={{ position: 'absolute', bottom: 0 }}>
+						<Animatable.View
+							animation="fadeInUp"
+							duration={2000}
+							behavior="padding"
+							style={{ position: 'absolute', bottom: 0 }}
+						>
 							<View
 								style={{
 									backgroundColor: '#B2BEEB',
 									width: width,
-									height: height / 1.037,
+									height: height / 1.0365,
 									borderTopLeftRadius: 50,
 									borderTopRightRadius: 50
 								}}
@@ -464,7 +467,7 @@ class Container extends Component {
 									</TouchableOpacity>
 								</View>
 							</View>
-						</KeyboardAvoidingView>
+						</Animatable.View>
 					) : null}
 
 					<TouchableHighlight
@@ -492,12 +495,28 @@ class Container extends Component {
 									borderWidth: 1
 								}}
 							/>
-							<Text style={{ marginTop: 5, fontSize: hp('2%'), fontWeight: 'bold' }}> Sign up </Text>
+							<Text
+								style={{
+									marginTop: 5,
+									fontSize: hp('2%'),
+									fontWeight: 'bold',
+									padding: 20,
+									alignSelf: 'center'
+								}}
+							>
+								{' '}
+								Sign up{' '}
+							</Text>
 						</View>
 					</TouchableHighlight>
 
 					{this.state.modalVisible ? (
-						<KeyboardAvoidingView behavior="padding" style={{ position: 'absolute', bottom: 0 }}>
+						<Animatable.View
+							animation="fadeInUp"
+							duration={2000}
+							behavior="padding"
+							style={{ position: 'absolute', bottom: 0 }}
+						>
 							<View
 								style={{
 									backgroundColor: '#B2BEEB',
@@ -691,11 +710,12 @@ class Container extends Component {
 								<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 									<Text
 										style={{
-											marginTop: 5,
+											padding: 15,
 											fontSize: hp('2%'),
 											fontWeight: 'bold',
 											color: '#B2BEEB',
-											marginTop: 20
+											marginTop: 20,
+											alignSelf: 'center'
 										}}
 									>
 										{' '}
@@ -703,7 +723,7 @@ class Container extends Component {
 									</Text>
 								</View>
 							</TouchableHighlight>
-						</KeyboardAvoidingView>
+						</Animatable.View>
 					) : null}
 				</View>
 			</View>

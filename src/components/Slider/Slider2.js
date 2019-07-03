@@ -9,7 +9,7 @@ class Slider2 extends Component {
 				<View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}>
 					<Image
 						source={require('../../assets/Walkthrough_image_2.png')}
-						style={{ width: wp('60%'), height: hp('45%'), resizeMode: 'contain' }}
+						style={{ width: wp('75%'), height: hp('55%'), resizeMode: 'contain' }}
 					/>
 				</View>
 				<View style={{ flex: 1, alignItems: 'center' }}>
