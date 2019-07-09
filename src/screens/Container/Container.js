@@ -638,8 +638,8 @@ class Container extends Component {
 												</Label>
 												<Input
 													style={{ color: 'white' }}
-													onBlur={this.handleBlur2}
-													onFocus={this.handleFocus2}
+													onBlur={this.handleBlur3}
+													onFocus={this.handleFocus3}
 													underlineColorAndroid="transparent"
 													secureTextEntry={true}
 												/>
